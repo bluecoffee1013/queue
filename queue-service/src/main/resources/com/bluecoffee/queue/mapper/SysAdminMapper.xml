@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bluecoffee.queue.mapper.SysAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.bluecoffee.queue.domain.SysAdmin" >
+    <id column="admin_id" property="adminId" jdbcType="BIGINT" />
+    <result column="login_account" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="pwd_type" property="pwdType" jdbcType="INTEGER" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    admin_id, login_account, login_pwd, pwd_type, realname, mobile, email
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_admin
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCond" resultMap="BaseResultMap" parameterType="com.bluecoffee.queue.domain.SysAdmin" resultType="java.util.List">
+    select
+    <include refid="Base_Column_List" />
+    from sys_admin
+    where 1=1
+    <if test="loginAccount != null">
+      and login_account = #{loginAccount,jdbcType=VARCHAR}
+    </if>
+    <if test="loginPwd != null">
+      and login_pwd = #{loginPwd,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_admin
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bluecoffee.queue.domain.SysAdmin" >
+    insert into sys_admin (admin_id, login_account, login_pwd, 
+      pwd_type, realname, mobile, 
+      email)
+    values (#{adminId,jdbcType=BIGINT}, #{loginAccount,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, 
+      #{pwdType,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bluecoffee.queue.domain.SysAdmin" >
+    insert into sys_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="loginAccount != null" >
+        login_account,
+      </if>
+      <if test="loginPwd != null" >
+        login_pwd,
+      </if>
+      <if test="pwdType != null" >
+        pwd_type,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdType != null" >
+        #{pwdType,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bluecoffee.queue.domain.SysAdmin" >
+    update sys_admin
+    <set >
+      <if test="loginAccount != null" >
+        login_account = #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        login_pwd = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdType != null" >
+        pwd_type = #{pwdType,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bluecoffee.queue.domain.SysAdmin" >
+    update sys_admin
+    set login_account = #{loginAccount,jdbcType=VARCHAR},
+      login_pwd = #{loginPwd,jdbcType=VARCHAR},
+      pwd_type = #{pwdType,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=BIGINT}
+  </update>
+</mapper>

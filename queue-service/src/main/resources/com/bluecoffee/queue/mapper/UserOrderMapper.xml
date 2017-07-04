@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bluecoffee.queue.mapper.UserOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.bluecoffee.queue.domain.UserOrder" >
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="id_card_number" property="idCardNumber" jdbcType="VARCHAR" />
+    <result column="social_card_number" property="socialCardNumber" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="CHAR" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="order_apply_time" property="orderApplyTime" jdbcType="TIMESTAMP" />
+    <result column="order_number" property="orderNumber" jdbcType="BIGINT" />
+    <result column="get_order_time" property="getOrderTime" jdbcType="TIMESTAMP" />
+    <result column="effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_operator" property="createOperator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_operator" property="updateOperator" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, user_name, gender, id_card_number, social_card_number, user_mobile, order_type,
+    order_date, order_apply_time, order_number, get_order_time, effective_time, state,
+    create_operator, create_time, update_operator, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from user_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <select id="listUserOrderByCond" resultMap="BaseResultMap" parameterType="com.bluecoffee.queue.domain.UserOrder" resultType="java.util.List">
+    select
+    <include refid="Base_Column_List" />
+    from user_order
+    where 1=1
+    <if test="userName != null">
+      and user_name like #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="idCardNumber != null">
+      and id_card_number = #{idCardNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="socialCardNumber != null">
+      and social_card_number = #{socialCardNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="state != null">
+      and state = #{state,jdbcType=INTEGER}
+    </if>
+    <if test="orderDate != null">
+      and order_date = #{orderDate,jdbcType=TIMESTAMP}
+    </if>
+    order by order_number
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bluecoffee.queue.domain.UserOrder" >
+    insert into user_order (order_id, user_name, gender,
+      id_card_number, social_card_number, user_mobile,
+      order_type, order_date, order_apply_time,
+      order_number, get_order_time, effective_time,
+      state, create_operator, create_time,
+      update_operator, update_time)
+    values (#{orderId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+      #{idCardNumber,jdbcType=VARCHAR}, #{socialCardNumber,jdbcType=VARCHAR}, #{userMobile,jdbcType=CHAR},
+      #{orderType,jdbcType=INTEGER}, #{orderDate,jdbcType=TIMESTAMP}, #{orderApplyTime,jdbcType=TIMESTAMP},
+      #{orderNumber,jdbcType=BIGINT}, #{getOrderTime,jdbcType=TIMESTAMP}, #{effectiveTime,jdbcType=TIMESTAMP},
+      #{state,jdbcType=INTEGER}, #{createOperator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateOperator,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bluecoffee.queue.domain.UserOrder" >
+    insert into user_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="idCardNumber != null" >
+        id_card_number,
+      </if>
+      <if test="socialCardNumber != null" >
+        social_card_number,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="orderApplyTime != null" >
+        order_apply_time,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="getOrderTime != null" >
+        get_order_time,
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createOperator != null" >
+        create_operator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateOperator != null" >
+        update_operator,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="idCardNumber != null" >
+        #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCardNumber != null" >
+        #{socialCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=CHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderApplyTime != null" >
+        #{orderApplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=BIGINT},
+      </if>
+      <if test="getOrderTime != null" >
+        #{getOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTime != null" >
+        #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createOperator != null" >
+        #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperator != null" >
+        #{updateOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bluecoffee.queue.domain.UserOrder" >
+    update user_order
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="idCardNumber != null" >
+        id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCardNumber != null" >
+        social_card_number = #{socialCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=CHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderApplyTime != null" >
+        order_apply_time = #{orderApplyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=BIGINT},
+      </if>
+      <if test="getOrderTime != null" >
+        get_order_time = #{getOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createOperator != null" >
+        create_operator = #{createOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateOperator != null" >
+        update_operator = #{updateOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bluecoffee.queue.domain.UserOrder" >
+    update user_order
+    set user_name = #{userName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      id_card_number = #{idCardNumber,jdbcType=VARCHAR},
+      social_card_number = #{socialCardNumber,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=CHAR},
+      order_type = #{orderType,jdbcType=INTEGER},
+      order_date = #{orderDate,jdbcType=TIMESTAMP},
+      order_apply_time = #{orderApplyTime,jdbcType=TIMESTAMP},
+      order_number = #{orderNumber,jdbcType=BIGINT},
+      get_order_time = #{getOrderTime,jdbcType=TIMESTAMP},
+      effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      create_operator = #{createOperator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_operator = #{updateOperator,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>
